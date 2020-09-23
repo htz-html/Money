@@ -1,6 +1,7 @@
 <template>
     <div>
         My Labels
+        <Nav/>
     </div>
 </template>
 
