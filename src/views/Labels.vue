@@ -1,6 +1,6 @@
 <template>
-    <div>
-        My Labels
+    <div class="nav-wrapper">
+        <div class="content">My Labels</div>
         <Nav/>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
-    <div>
-        My Statistics
+    <div class="nav-wrapper">
+        <div class="content">My Statistics</div>
         <Nav/>
     </div>
 </template>

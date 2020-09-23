@@ -13,6 +13,11 @@ export default {
 //在 scss里因为外部的scss文件: @import "~@/assets/styles/test.scss";
 @import "~@/assets/styles/test.scss";
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

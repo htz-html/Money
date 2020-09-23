@@ -13,5 +13,13 @@
 </script>
 
 <style lang="scss" scoped>
-
+.nav{
+    display: flex;
+    height: 50px;
+    box-shadow: rgba(0, 0, 0, 0.214) 0 0 5px;
+    a{
+        flex: 1;
+        text-align: center;
+    }
+}
 </style>
