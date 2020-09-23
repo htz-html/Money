@@ -1,16 +1,12 @@
+import Statistics from '@/views/Statistics.vue';
 <template>
-    <div class="nav-wrapper">
-        <div class="content">My Statistics</div>
-        <Nav/>
-    </div>
+  <Layout>
+    Statistics
+  </Layout>
 </template>
 
 <script lang="ts">
-    export default {
-        
-    }
+export default {
+  name: "Statistics",
+};
 </script>
-
-<style lang="scss" scoped>
-
-</style>

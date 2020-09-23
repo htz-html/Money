@@ -1,10 +1,1 @@
 $red:rgb(255, 242, 225);
-.nav-wrapper{
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    .content{
-        overflow: auto;
-        flex-grow: 1;
-    }
-}

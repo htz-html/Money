@@ -1,18 +1,12 @@
+import Layout from '@/components/Layout.vue';
 <template>
-    <div class="nav-wrapper">
-        <div class="content">
-            <h1>My Money</h1>
-        </div>
-        <Nav/>
-    </div>
+  <Layout>
+    My money
+  </Layout>
 </template>
 
 <script lang="ts">
-    export default {
-        
-    }
+export default {
+  name: "Money",
+};
 </script>
-
-<style lang="scss" scoped>
-
-</style>
