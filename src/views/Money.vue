@@ -4,7 +4,6 @@ import Layout from '@/components/Layout.vue';
     My money
   </Layout>
 </template>
-
 <script lang="ts">
 export default {
   name: "Money",
