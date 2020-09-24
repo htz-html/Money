@@ -49,7 +49,7 @@ nav {
     text-decoration: none;
     color: #333;
   }
-  .item .selected{
+  .item.selected{
     color: rgb(0, 72, 255);
   }
   .icon{

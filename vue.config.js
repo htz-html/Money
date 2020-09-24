@@ -12,6 +12,9 @@ module.exports = {
       .include.add(dir).end()//不是让所有的svg都走这个规则，我们只需要icons这个目录下的svg走这个规则
       // 配置loader
       .use('svg-sprite-loader').loader('svg-sprite-loader').options( {extract: false}).end()//我要使用哪些loader；extract: false的意思就是不要把它解析成文件来
+      //下面的use和tap，不管你的icon是否默认有颜色，我们都把颜色去掉的操作
+      .use('svgo-loader').loader('svgo-loader')
+      .tap(options => ({...options, plugins: [{removeAttrs: {attrs:'fill'}}]})).end()
       //配置插件
     config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'), [{plainSprite: true}])
     config.module.rule('svg').exclude.add(dir) //因为我们这些svg是要走这个loader的，其他的svg就不要管我已经走了这个loader的东西了。
