@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { filter } from "vue/types/umd";
+import { filter } from "vue/types/umd"; //是自动生成的，不写
 //下面的import会报错，解决办法
 //答：去谷歌搜索typescript svg cannot find module，得到一个全英文网站，意思就是要你去创建一个.d.ts的文件，
 //里面添加它所要求的的一段代码。要因为我们的文件有“.d.ts”后缀的文件，所以可以不用新创建文件，直接添加到shims-vue.d.ts文件里面。
@@ -34,6 +34,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/helper.scss";
 nav {
   display: flex;
   box-shadow: rgba(0, 0, 0, 0.24) 0 0 5px;
@@ -50,7 +51,7 @@ nav {
     color: #333;
   }
   .item.selected{
-    color: rgb(0, 72, 255);
+    color: $color-heightlight;
   }
   .icon{
     width: 28px;

@@ -10,31 +10,15 @@ export default {
 }
 </script>
 <style lang="scss">
-//在 scss里因为外部的scss文件: @import "~@/assets/styles/test.scss";
-@import "~@/assets/styles/test.scss";
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+//在 scss里引入外部的scss文件: @import "~@/assets/styles/test.scss";
+@import "~@/assets/styles/helper.scss";
+@import "~@/assets/styles/reset.scss";
+body{
+  //如果是两个团队合作的话，这些最好是写在下面#app里面
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  font-family: $font-hei;
+  line-height: 1.5;
+  color: #333;
 }
 </style>
