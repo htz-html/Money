@@ -37,7 +37,7 @@ export default {
 @import "~@/assets/styles/helper.scss";
 nav {
   display: flex;
-  box-shadow: rgba(0, 0, 0, 0.24) 0 0 5px;
+  @extend %outerShadow;
   flex-direction: row;
   >.item {
     padding: 5px 0;
