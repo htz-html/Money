@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad />
-    <Types />
+    <Types xxx= "我是type组件传过来的" />
     <Notes />
     <Tags />
   </Layout>
