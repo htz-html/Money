@@ -1,4 +1,3 @@
-import Types from '@/components/Money/Types.vue';
 <template>
   <div>
     <ul class="types">
@@ -12,41 +11,28 @@ import Types from '@/components/Money/Types.vue';
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component } from 'vue-property-decorator';  //是干嘛的，谷歌搜索vue-property-decorator
+import { Component, Prop } from 'vue-property-decorator';  
 
-@Component  //输入@Com出来之后按tab键，上面{Component}就会自动引入
+@Component 
 export default class Types extends Vue{
   type = '-'
-  selectType (type: string) {  // 给type加string是唯一用到ts的语法
+  @Prop(Number) toFather: number | undefined
+  // @Prop(Number) toFather = 0;
+  selectType (type: string) { 
     if(type !== '-' && type !== '+'){
       throw new Error('type is unkonw')
     }
     this.type = type
   }
+  mounted(){
+    if(this.toFather===undefined) {
+      console.log('没有toFather')
+    }else{
+      console.log(this.toFather.toString())
+    }
+  }
 }
-// export default {
-//   name: 'Types',
-//   props:['xxx'],
-//   data(){
-//     return{
-//       type: '-',  // - 表示支出，+ 表示收入
-//       selected:'selected'
-//     }
-//   },
-//   mounted(){
-//     console.log(this.xxx)
-//   },
-//   methods: {
-//     selectType (type){
-//       if(type !== '-' && type !== '+'){
-//         throw new Error('type is unkonw')
-//       }
-//       this.type = type
-//     }
-//   },
-// };
 </script>
-
 <style lang="scss" scoped>
 .types {
   display: flex;
