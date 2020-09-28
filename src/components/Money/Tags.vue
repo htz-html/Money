@@ -4,16 +4,40 @@
       <button>新增标签</button>
     </div>
     <ul class="current">
-      <li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li>
+      <li 
+        v-for="tag in dataSource" 
+        :key="tag"
+        @click="toggle(tag)"
+        :class="{active:selectedTags.indexOf(tag)>=0}"
+        >{{tag}}</li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-export default {};
+import Vue from 'vue'
+import { Component, Prop} from 'vue-property-decorator';  
+
+@Component
+export default class Tags extends Vue {
+  //dataSource:数据源的意思
+  @Prop() dataSource: string[] | undefined;   //tags是一个外部的数据，这里不能给他赋值。因为他的值是由外部决定的
+  selectedTags: string[] = [];
+
+  toggle(tag:string){
+    this.selectedTags = [tag];
+    console.log(this.selectedTags)
+
+    //这是老师的
+    // const index = this.selectedTags.indexOf(tag)
+    // if(index>=0){
+    //   this.selectedTags.splice(index, 1)
+    //   console.log(this.selectedTags)
+    // }else{
+    //   this.selectedTags.push(tag)
+    // }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -38,6 +62,10 @@ export default {};
       padding: 0 15px;
       margin: 10px;
       background-color: #d9d9d9;
+    }
+    > li.active{
+      background-color: $color-heightlight;
+      color: #fff;
     }
   }
   > .new {
