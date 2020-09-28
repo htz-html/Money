@@ -1,27 +1,69 @@
 <template>
   <div class="numberPad">
-    <div class="output">100</div>
+    <div class="output">{{output}}</div>
     <div class="btns">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>删除</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>清空</button>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button class="ok">OK</button>
-      <button class="zero">0</button>
-      <button>.</button>
+      <button @click="inputNum">1</button>
+      <button @click="inputNum">2</button>
+      <button @click="inputNum">3</button>
+      <button @click="remove">删除</button>
+      <button @click="inputNum">4</button>
+      <button @click="inputNum">5</button>
+      <button @click="inputNum">6</button>
+      <button @click="clear">清空</button>
+      <button @click="inputNum">7</button>
+      <button @click="inputNum">8</button>
+      <button @click="inputNum">9</button>
+      <button @click="ok" class="ok">OK</button>
+      <button @click="inputNum" class="zero">0</button>
+      <button @click="inputNum">.</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-export default {};
+import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
+
+@Component
+export default class NumberPad extends Vue {
+  output = '0';
+
+  inputNum(event: MouseEvent){
+    const button = (event.target as HTMLButtonElement)  //as HTMLButtonElement一种强制去掉警告，也就是告诉检查者button的值不可能为空
+    const input = button.textContent!  //表示不要判断为空的情况了。去掉”！“试试就知道了
+    if(this.output.length === 16) {
+      return
+    }
+    if(this.output === '0') {
+      if('01234567889'.indexOf(input) >= 0) {
+        this.output = input
+      } else {
+         this.output += input
+      }
+      return
+    }
+    if(this.output.indexOf('.') >= 1 && input === '.') {
+      return 
+    }
+    
+    this.output += input
+  }
+  remove(){
+    let del = this.output;
+    if(del.length === 1){
+      this.output = '0'
+    } else {
+      this.output = del.substring(0, del.length-1);
+      // this.output = del.slice(0,-1);
+    }
+  }
+  clear(){
+    this.output = '0'
+  }
+  ok() {
+    
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -33,6 +75,7 @@ export default {};
     font-size: 36px;
     font-family: Consolas, monospace; //直接使用字体
     line-height: 60px;
+    min-height: 60px;
     @extend %innerShadow;
     // box-shadow: inset 0 -5px 5px -5px fade-out(black,0.7); // 向上的阴影，想要同时添加上下阴影
     // box-shadow: inset 0 -5px 5px -5px fade-out(black,0.7), //向上的阴影，想要同时添加上下阴影
