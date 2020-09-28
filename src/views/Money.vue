@@ -3,7 +3,7 @@
     <NumberPad />
     <Types :toFather="123" />
     <Notes />
-    <Tags :data-source="tags" />
+    <Tags :data-source.sync="tags" />
   </Layout>
 </template>
 <script lang="js">
@@ -18,7 +18,8 @@ export default {
       tags:['衣','食','住','行']
     }
   },
-  components:{ Tags, Notes, Types, NumberPad }
+  components:{ Tags, Notes, Types, NumberPad },
+
 };
 </script>
 <style lang="scss">
