@@ -15,21 +15,12 @@ import { Component, Prop } from 'vue-property-decorator';
 
 @Component 
 export default class Types extends Vue{
-  type = '-'
-  @Prop(Number) toFather: number | undefined
-  // @Prop(Number) toFather = 0;
+  type = '-'; // '-'表示支出，'+'表示收入
   selectType (type: string) { 
     if(type !== '-' && type !== '+'){
       throw new Error('type is unkonw')
     }
     this.type = type
-  }
-  mounted(){
-    if(this.toFather===undefined) {
-      console.log('没有toFather')
-    }else{
-      console.log(this.toFather.toString())
-    }
   }
 }
 </script>

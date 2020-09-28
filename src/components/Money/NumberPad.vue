@@ -26,7 +26,6 @@ export default {};
 
 <style lang="scss" scoped>
 @import "~@/assets/styles/helper.scss";
-
 .numberPad {
   .output {
     padding-right: 10px;
