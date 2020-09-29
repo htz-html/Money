@@ -4,7 +4,7 @@
     <Types :value.sync="record.type"/>
     <Notes @update:value="onUpdateNotes" />
     <Tags :data-source.sync="tags" @update:value="onUpdateTags" />
-    {{record}}
+    {{recordList}}
   </Layout>
 </template>
 <script lang="ts">
@@ -22,6 +22,7 @@ type Record = {
   notes: string
   type: string
   amount: number
+  createdAt?:Date
 }
 //3.最后在34行写在data()里面
 
@@ -31,7 +32,7 @@ type Record = {
 })
 export default class Money extends Vue {
   tags = ['衣','食','住','行'];
-  recordList : Record[] = [];
+  recordList : Record[] = JSON.parse(window.localStorage.getItem("recordList")|| '[]');
 
   record : Record = {
     tags:[], notes: '', type:'-', amount: 0
@@ -56,7 +57,8 @@ export default class Money extends Vue {
   //9.深拷贝：第一，先变成字符串，然后字符串创造出一下新的对象就好了。
 
   saveRecord(){
-    const record2 = JSON.parse(JSON.stringify(this.record))
+    const record2: Record = JSON.parse(JSON.stringify(this.record))  //深拷贝
+    record2.createdAt = new Date()
     this.recordList.push(record2)
   }
   @Watch('recordList')
