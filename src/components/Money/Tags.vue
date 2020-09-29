@@ -21,7 +21,7 @@ import { Component, Prop} from 'vue-property-decorator';
 @Component
 export default class Tags extends Vue {
   //dataSource:数据源的意思
-  @Prop() readonly dataSource: string[] | undefined;   //tags是一个外部的数据，这里不能给他赋值。因为他的值是由外部决定的
+  @Prop(Array) readonly dataSource: string[] | undefined;   //tags是一个外部的数据，这里不能给他赋值。因为他的值是由外部决定的
   selectedTags: string[] = [];
 
   selecte(tag:string){
@@ -36,6 +36,7 @@ export default class Tags extends Vue {
     // }else{
     //   this.selectedTags.push(tag)
     // }
+    this.$emit('update:value', this.selectedTags)
   }
   create(){
     const name = window.prompt("请输入标签名")

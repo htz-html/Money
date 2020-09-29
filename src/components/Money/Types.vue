@@ -11,17 +11,23 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator';  
+import { Component, Prop, Watch } from 'vue-property-decorator';  
 
 @Component 
 export default class Types extends Vue{
-  type = '-'; // '-'表示支出，'+'表示收入
+  @Prop(String) readonly type!: string;
   selectType (type: string) { 
     if(type !== '-' && type !== '+'){
       throw new Error('type is unkonw')
     }
-    this.type = type
+    this.$emit('update:value', type)
   }
+  
+  //type是外面传来的，所以这个页面只能读不能写。所以监听也不需要了
+  // @Watch('type')  //为什么要使用watch，而不是24行呢。因为watch只在变化的时候触发。而24行是每点击一次都会触发，点击相同的也会触发
+  // onTypeChanged(value:string){
+  //   this.$emit('update:value', value)
+  // }
 }
 </script>
 <style lang="scss" scoped>

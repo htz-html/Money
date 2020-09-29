@@ -1,7 +1,7 @@
 <template>
   <nav>
     <router-link to="/money" class="item" active-class="selected">
-      <Icon name="money3" />标签
+      <Icon name="money3" />记账
     </router-link>
     <router-link to="/labels" class="item" active-class="selected">
       <Icon name="label" />标签
@@ -40,7 +40,7 @@ nav {
   @extend %outerShadow;
   flex-direction: row;
   >.item {
-    padding: 5px 0;
+    padding: 4px 0;
     width: 33.3333%;
     display: flex;
     justify-content: center;
@@ -54,8 +54,8 @@ nav {
     color: $color-heightlight;
   }
   .icon{
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
   }
 }
 </style>
