@@ -26,7 +26,8 @@ import { Component, Prop } from 'vue-property-decorator';
 
 @Component
 export default class NumberPad extends Vue {
-  output = '0';
+  @Prop(Number) readonly value!: number;
+  output = this.value.toString()
 
   inputNum(event: MouseEvent){
     const button = (event.target as HTMLButtonElement)  //as HTMLButtonElement一种强制去掉警告，也就是告诉检查者button的值不可能为空
@@ -38,7 +39,7 @@ export default class NumberPad extends Vue {
       if('01234567889'.indexOf(input) >= 0) {
         this.output = input
       } else {
-         this.output += input
+        this.output += input
       }
       return
     }
@@ -61,7 +62,7 @@ export default class NumberPad extends Vue {
     this.output = '0'
   }
   ok() {
-    this.$emit("update:value", this.output)
+    this.$emit("update:value", +this.output)
   }
 };
 </script>
