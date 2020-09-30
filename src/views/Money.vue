@@ -14,6 +14,7 @@ import Notes from '@/components/Money/Notes.vue'
 import Types from '@/components/Money/Types.vue'
 import NumberPad from '@/components/Money/NumberPad.vue'
 import {Component, Watch} from 'vue-property-decorator'
+import model from '@/model.ts'
 
 //1.数据迁移，也就是说最开始我可能没有createdAt(记录时间)，但是后面我又要每次点击OK的试试记录下时间
 //2.那么我们就要把之前的数据，都添加一个时间，但是这个时间没办法找，就只能设置一个固定值。
@@ -22,7 +23,14 @@ import {Component, Watch} from 'vue-property-decorator'
 //4.获取当前版本
 const version = window.localStorage.getItem('version') || '0';
 //5.要获取之前的数据
-const recordList : Record[] = JSON.parse(window.localStorage.getItem("recordList")|| '[]');
+type RecordItem = {
+    tags:string[]
+    notes: string
+    type: string
+    amount: number
+    createdAt?:Date
+}
+const recordList = model.fetch();
 //6.做判断
 if(version === '0.0.1') {
 //7.数据库升级，数据迁移
@@ -38,13 +46,7 @@ window.localStorage.setItem('version', '0.0.2')
 
 //1.我要把选中的标签、备注内容、类型、输入的数字收集到一个对象里面。
 //2.ts对象的声明需要在外面先做一下操作: record 记录的意思
-type Record = {
-  tags:string[]
-  notes: string
-  type: string
-  amount: number
-  createdAt?:Date
-}
+
 //3.最后在34行写在data()里面
 
 @Component({
@@ -53,9 +55,9 @@ type Record = {
 })
 export default class Money extends Vue {
   tags = ['衣','食','住','行'];
-  recordList : Record[] = recordList;  //后面recordList就是25行在本地获取的
+  recordList: RecordItem[] = recordList;  //后面recordList就是25行在本地获取的
 
-  record : Record = {
+  record : RecordItem = {
     tags:[], notes: '', type:'-', amount: 0
   }
 
@@ -78,13 +80,13 @@ export default class Money extends Vue {
   //9.深拷贝：第一，先变成字符串，然后字符串创造出一下新的对象就好了。
 
   saveRecord(){
-    const record2: Record = JSON.parse(JSON.stringify(this.record))  //深拷贝
+    const record2: RecordItem = model.clone(this.record); //深拷贝
     record2.createdAt = new Date()
     this.recordList.push(record2)
   }
   @Watch('recordList')
   onRecordListChange(){
-    window.localStorage.setItem('recordList', JSON.stringify(this.recordList))
+    model.save(this.recordList)
   }
 };
 </script>

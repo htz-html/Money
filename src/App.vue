@@ -6,7 +6,8 @@
 
 <script lang="ts">
 //在script里面引入组件或者js文件时使用: import x from '@/components/Test.vue'
-export default {
+import Vue from 'vue'
+export default class App extends Vue {
 }
 </script>
 <style lang="scss">
