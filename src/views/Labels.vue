@@ -1,23 +1,72 @@
 <template>
   <Layout>
-    <LabelTitle />
-    <Label :label-source = "labels" />
+    <ul class="tag-all">
+            <li 
+              v-for="tag in tags"
+              :key="tag"
+            >
+                <span>{{tag}}</span>
+                <span class="icon">
+                  <Icon name = "right"/>
+                </span>
+            </li>
+      </ul>
+      <div class="createTag-btnBox">
+        <button class="createTag" @click="createTag">新建标签</button>
+      </div>
   </Layout>
 </template>
 
 <script lang="js">
-import Label from '@/components/Labels/Label.vue'
-import LabelTitle from '@/components/Labels/LabelTitle.vue'
-export default {
-  name: "Labels",
-  components:{Label,LabelTitle},
-  data(){
-    return{
-      labels:['衣','食','住','行']
-    }
+import Vue from 'vue'
+import {Component, Watch} from 'vue-property-decorator'
+import tagListModel from '@/models/tagListModel.ts';
+
+tagListModel.fetch() //一开始就fetch()一下
+@Component
+export default class Labels extends Vue {
+  tags = tagListModel.data;
+  createTag(){
+    const name = window.prompt("请输入标签名")
+    if(name){
+      const message = tagListModel.create(name);
+      if(message === 'success'){
+        alert(message,"新增标签成功")
+      }else if(message === 'duplicated'){
+        alert( message,"标签重复")
+      }
+    } 
   }
 };
 </script>
 <style lang="scss" scoped>
-
+.tag-all {
+  padding-left:14px;
+  background: white;
+  > li {
+    display: flex;
+    min-height: 44px;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    svg{
+      width: 16px;
+      color: #888;
+      margin-right: 14px;
+    }
+  }
+}
+.createTag{
+  padding: 0 20px;
+  min-height: 40px;
+  border: none;
+  background: #aaa;
+  border-radius: 5px;
+  color: white;
+  &-btnBox {
+    text-align: center;
+    padding: 16px;
+    margin-top: 44-16px;
+  }
+}
 </style>

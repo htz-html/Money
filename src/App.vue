@@ -15,11 +15,14 @@ export default class App extends Vue {
 @import "~@/assets/styles/helper.scss";
 @import "~@/assets/styles/reset.scss";
 body{
+
   //如果是两个团队合作的话，这些最好是写在下面#app里面
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: $font-hei;
   line-height: 1.5;
   color: #333;
+  font-size: 14px;
+  background: #f4f4f4;
 }
 </style>
