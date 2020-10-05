@@ -7,7 +7,7 @@ import EditLabel from '@/views/EditLabel.vue';
         <span class="title">编辑标签</span>
       </div>
       <div class="form-wrapper">
-        <FormItem field-name="标签名" placeholder="请输入标签名" />
+        <FormItem field-name="标签名" placeholder="请输入标签名" :value = "tag.name" />
       </div>
       <div class="removeTag-btnBox">
         <Button class="removeTag">删除标签</Button>
@@ -30,6 +30,7 @@ import Button from "@/components/Button.vue";
   },
 })
 export default class EditLabel extends Vue {
+    tag?:{id:string, name: string} = undefined;
   //获取后面的id信息
   created() {
     const id = this.$route.params.id;
@@ -37,7 +38,7 @@ export default class EditLabel extends Vue {
     const tags = tagListModel.data;
     const tag = tags.filter((t) => t.id === id)[0];
     if (tag) {
-      console.log(tag);
+      this.tag = tag
     } else {
       this.$router.replace("/404");
     }
