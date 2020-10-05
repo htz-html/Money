@@ -14,7 +14,9 @@
             </router-link>
       </div>
       <div class="createTag-btnBox">
-        <button class="createTag" @click="createTag">新建标签</button>
+        <!-- 点击按钮是没有效果的，因为此处点击的是Button，只有点击button才会触发事件。所以要在Button组件中加上：@click="$emit('click',$event)" -->
+        <!-- 如果不在Button组件中加上：@click="$emit('click',$event)" ，则在下面标签中加上@click.native="createTag"，也是可以的-->
+        <Button @click="createTag">新建标签</Button>
       </div>
   </Layout>
 </template>
@@ -23,9 +25,12 @@
 import Vue from 'vue'
 import {Component, Watch} from 'vue-property-decorator'
 import tagListModel from '@/models/tagListModel.ts';
+import Button from '@/components/Button.vue'
 
 tagListModel.fetch() //一开始就fetch()一下
-@Component
+@Component({
+  components:{Button}
+})
 export default class Labels extends Vue {
   tags = tagListModel.data;
   createTag(){
@@ -59,12 +64,6 @@ export default class Labels extends Vue {
   }
 }
 .createTag{
-  padding: 0 20px;
-  min-height: 40px;
-  border: none;
-  background: #aaa;
-  border-radius: 5px;
-  color: white;
   &-btnBox {
     text-align: center;
     padding: 16px;

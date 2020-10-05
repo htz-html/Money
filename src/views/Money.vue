@@ -2,9 +2,10 @@
   <Layout class-prefix="layout">
     <NumberPad :value.sync="record.amount" @submit = "saveRecord" />
     <Types :value.sync="record.type"/>
-    <FormItem field-name="备注" placeholder="请输入标签名" @update:value="onUpdateNotes" />
+    <div class="notes">
+      <FormItem field-name="备注" placeholder="请输入标签名" @update:value="onUpdateNotes" />
+    </div>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags" />
-    {{recordList}}
   </Layout>
 </template>
 <script lang="ts">
@@ -96,5 +97,8 @@ export default class Money extends Vue {
 .layout-content {
   display: flex;
   flex-direction: column-reverse;
+}
+.notes{
+  padding:10px 0;
 }
 </style>

@@ -2,19 +2,16 @@ import EditLabel from '@/views/EditLabel.vue';
 <template>
   <Layout>
     <div class="edit-label">
-        <div class="removeTag-btnBox">
-        <button class="removeTag">删除标签</button>
+      <div class="navBar">
+        <span class="leftIcon"><Icon class="icon" name="left"/></span>
+        <span class="title">编辑标签</span>
       </div>
-      <div class="content">
-        <div class="header">
-          <Icon name="left" />
-          <span class="title">编辑标签</span>
-        </div>
-        <div class="edit">
-            <FormItem field-name = "标签名" placeholder = "请输入标签名" />  
-        </div>
+      <div class="form-wrapper">
+        <FormItem field-name="标签名" placeholder="请输入标签名" />
       </div>
-      
+      <div class="removeTag-btnBox">
+        <Button class="removeTag">删除标签</Button>
+      </div>
     </div>
   </Layout>
 </template>
@@ -24,16 +21,15 @@ import Vue from "vue";
 import { Component, Watch, Prop } from "vue-property-decorator";
 import tagListModel from "../models/tagListModel";
 import Layout from "@/components/Layout.vue";
-import FormItem from '@/components/Money/FormItem.vue';
-
+import FormItem from "@/components/Money/FormItem.vue";
+import Button from "@/components/Button.vue";
 
 @Component({
-    components:{
-        FormItem
-    }
+  components: {
+    FormItem,
+  },
 })
 export default class EditLabel extends Vue {
-    
   //获取后面的id信息
   created() {
     const id = this.$route.params.id;
@@ -52,22 +48,27 @@ export default class EditLabel extends Vue {
 <style lang="scss" scoped>
 .edit-label {
   display: flex;
-  justify-content: space-between;
-  flex-direction: column-reverse;
-  .content {
-    flex-grow: 1;
+  flex-direction: column;
+  .navBar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    background: white;
+    font-size: 16px;
+    > .leftIcon {
+      position: absolute;
+      left: 15px;   
+      >.icon{
+          width: 24px;
+      }
+    }
   }
-  .edit{
-      margin-top: 10px;
-      background: white;
-  }
-}
-.header {
-  display: flex;
-  align-items: center;
-  min-height: 44px;
-  background: white;
-  > .title {
+  .form-wrapper {
+    margin-top: 10px;
+    background: white;
+    box-shadow: 0 1px 2px #0000001a;
   }
 }
 
