@@ -23,7 +23,7 @@ const tagListModel: TagListModel = {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data))
     },
     create(name:string) {
-        const names = this.data.map(item=>item.name)
+        const names = this.data.map(item=>item.name)  //如data={[id:"1",name:"1"]}，提取name组成一个新的数组
         if (names.indexOf(name) >= 0 ){ return 'duplicated'};
         this.data.push({id:name,name:name});
         this.save();
