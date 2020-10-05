@@ -58,7 +58,7 @@ window.localStorage.setItem('version', '0.0.2')
 })
 export default class Money extends Vue {
   tags = tagList;
-  recordList: RecordItem[] = recordList;  //后面recordList就是25行在本地获取的
+  recordList: RecordItem[] = recordList;  //后面recordList就是35行在本地获取的
 
   record : RecordItem = {
     tags:[], notes: '', type:'-', amount: 0
