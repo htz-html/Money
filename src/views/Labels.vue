@@ -3,9 +3,9 @@
     <ul class="tag-all">
             <li 
               v-for="tag in tags"
-              :key="tag"
+              :key="tag.id"
             >
-                <span>{{tag}}</span>
+                <span>{{tag.name}}</span>
                 <span class="icon">
                   <Icon name = "right"/>
                 </span>
