@@ -1,9 +1,8 @@
-import EditLabel from '@/views/EditLabel.vue';
 <template>
   <Layout>
     <div class="edit-label">
       <div class="navBar">
-        <span class="leftIcon"><Icon class="icon" name="left"/></span>
+        <span class="leftIcon"><Icon class="icon" name="left"  @click="goBack"/></span>
         <span class="title">编辑标签</span>
       </div>
       <div class="form-wrapper">
@@ -15,7 +14,7 @@ import EditLabel from '@/views/EditLabel.vue';
         />
       </div>
       <div class="removeTag-btnBox">
-        <Button class="removeTag">删除标签</Button>
+        <Button class="removeTag" @click="remove">删除标签</Button>
       </div>
     </div>
   </Layout>
@@ -24,7 +23,7 @@ import EditLabel from '@/views/EditLabel.vue';
 <script lang="ts">
 import Vue from "vue";
 import { Component, Watch, Prop } from "vue-property-decorator";
-import tagListModel from "../models/tagListModel";
+import tagListModel from '../models/tagListModel';
 import Layout from "@/components/Layout.vue";
 import FormItem from "@/components/Money/FormItem.vue";
 import Button from "@/components/Button.vue";
@@ -49,7 +48,18 @@ export default class EditLabel extends Vue {
     }
   }
   updateTag(name: string) {
-      
+      if(this.tag) {
+          tagListModel.update(this.tag.id, name)
+      }
+  }
+  remove(){
+      if(this.tag) {
+          tagListModel.remove(this.tag.id)
+          this.$router.back()
+      }
+  }
+  goBack(){
+      this.$router.back()
   }
 }
 </script>
