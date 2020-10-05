@@ -2,7 +2,7 @@
   <Layout class-prefix="layout">
     <NumberPad :value.sync="record.amount" @submit = "saveRecord" />
     <Types :value.sync="record.type"/>
-    <Notes field-name="备注" placeholder="请输入标签名" @update:value="onUpdateNotes" />
+    <FormItem field-name="备注" placeholder="请输入标签名" @update:value="onUpdateNotes" />
     <Tags :data-source.sync="tags" @update:value="onUpdateTags" />
     {{recordList}}
   </Layout>
@@ -10,7 +10,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Tags from '@/components/Money/Tags.vue'
-import Notes from '@/components/Money/Notes.vue'
+import FormItem from '@/components/Money/FormItem.vue'
 import Types from '@/components/Money/Types.vue'
 import NumberPad from '@/components/Money/NumberPad.vue'
 import {Component, Watch} from 'vue-property-decorator'
@@ -53,7 +53,7 @@ window.localStorage.setItem('version', '0.0.2')
 
 @Component({
   name: "Money",
-  components:{ Tags, Notes, Types, NumberPad }
+  components:{ Tags, FormItem, Types, NumberPad }
 })
 export default class Money extends Vue {
   tags = tagList;

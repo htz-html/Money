@@ -11,7 +11,7 @@ import EditLabel from '@/views/EditLabel.vue';
           <span class="title">编辑标签</span>
         </div>
         <div class="edit">
-            <Notes field-name = "标签名" placeholder = "请输入标签名" />  
+            <FormItem field-name = "标签名" placeholder = "请输入标签名" />  
         </div>
       </div>
       
@@ -24,12 +24,12 @@ import Vue from "vue";
 import { Component, Watch, Prop } from "vue-property-decorator";
 import tagListModel from "../models/tagListModel";
 import Layout from "@/components/Layout.vue";
-import Notes from '@/components/Money/Notes.vue';
+import FormItem from '@/components/Money/FormItem.vue';
 
 
 @Component({
     components:{
-        Notes
+        FormItem
     }
 })
 export default class EditLabel extends Vue {
