@@ -26,6 +26,7 @@ import { Component, Watch, Prop } from "vue-property-decorator";
 import Layout from "@/components/Layout.vue";
 import FormItem from "@/components/Money/FormItem.vue";
 import Button from "@/components/Button.vue";
+import store from '@/store/index2.ts'
 
 @Component({
   components: {
@@ -33,7 +34,7 @@ import Button from "@/components/Button.vue";
   },
 })
 export default class EditLabel extends Vue {
-  tag = window.findTag(this.$route.params.id);
+  tag = store.findTag(this.$route.params.id);
   //获取后面的id信息
   created() {
     if(!this.tag){
@@ -42,12 +43,12 @@ export default class EditLabel extends Vue {
   }
   updateTag(name: string) {
       if(this.tag) {
-          window.updateTag(this.tag.id, name)
+          store.updateTag(this.tag.id, name)
       }
   }
   remove(){
       if(this.tag) {
-          if(window.removeTag(this.tag.id)) {
+          if(store.removeTag(this.tag.id)) {
             this.$router.back()
           }else {
               alert("失败")
