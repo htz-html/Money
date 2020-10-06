@@ -33,7 +33,7 @@ type RecordItem = {
     createdAt?:Date
 }
 const recordList = recordListModel.fetch();
-const tagList = tagListModel.fetch();
+// const tagList = tagListModel.fetch();
 //6.做判断
 if(version === '0.0.1') {
 //7.数据库升级，数据迁移
@@ -57,7 +57,7 @@ window.localStorage.setItem('version', '0.0.2')
   components:{ Tags, FormItem, Types, NumberPad }
 })
 export default class Money extends Vue {
-  tags = tagList;
+  tags = window.tagList;
   recordList: RecordItem[] = recordList;  //后面recordList就是35行在本地获取的
 
   record : RecordItem = {
