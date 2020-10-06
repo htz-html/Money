@@ -7,6 +7,7 @@ const recordListModel = {
         const record2:RecordItem = clone(record); //深拷贝
         record2.createdAt = new Date()
         this.data.push(record2)
+        this.save()
     },
     fetch(){
         // return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]'); 给fetch的返回值一个类型

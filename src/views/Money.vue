@@ -14,8 +14,7 @@ import Tags from '@/components/Money/Tags.vue'
 import FormItem from '@/components/Money/FormItem.vue'
 import Types from '@/components/Money/Types.vue'
 import NumberPad from '@/components/Money/NumberPad.vue'
-import {Component, Watch} from 'vue-property-decorator'
-import recordListModel from '@/models/recordListModel.ts'
+import {Component} from 'vue-property-decorator'
 
 //1.数据迁移，也就是说最开始我可能没有createdAt(记录时间)，但是后面我又要每次点击OK的试试记录下时间
 //2.那么我们就要把之前的数据，都添加一个时间，但是这个时间没办法找，就只能设置一个固定值。
@@ -31,7 +30,7 @@ type RecordItem = {
     amount: number
     createdAt?:Date
 }
-const recordList = recordListModel.fetch();
+const recordList = window.recordList;
 // const tagList = tagListModel.fetch();
 //6.做判断
 if(version === '0.0.1') {
@@ -57,7 +56,7 @@ window.localStorage.setItem('version', '0.0.2')
 })
 export default class Money extends Vue {
   tags = window.tagList;
-  recordList: RecordItem[] = recordList;  //后面recordList就是35行在本地获取的
+  recordList = window.recordList;  //后面recordList就是35行在本地获取的
 
   record : RecordItem = {
     tags:[], notes: '', type:'-', amount: 0
@@ -82,11 +81,7 @@ export default class Money extends Vue {
   //9.深拷贝：第一，先变成字符串，然后字符串创造出一下新的对象就好了。
 
   saveRecord(){
-    recordListModel.create(this.record)
-  }
-  @Watch('recordList')
-  onRecordListChange(){
-    recordListModel.save()
+    window.createRecord(this.record)
   }
 };
 </script>

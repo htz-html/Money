@@ -27,4 +27,6 @@ interface Window {
     removeTag: TagListModel['remove'];//意思是返回的类型是TagListModel里面的remove返回的一样的类型
     updateTag: TagListModel['update'];
     findTag:(id:string) => Tag | undefined;
+    recordList: RecordItem[];
+    createRecord: (record:RecordItem) => void
 }
