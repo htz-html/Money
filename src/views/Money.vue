@@ -83,13 +83,11 @@ export default class Money extends Vue {
   //9.深拷贝：第一，先变成字符串，然后字符串创造出一下新的对象就好了。
 
   saveRecord(){
-    const record2: RecordItem = recordListModel.clone(this.record); //深拷贝
-    record2.createdAt = new Date()
-    this.recordList.push(record2)
+    recordListModel.create(this.record)
   }
   @Watch('recordList')
   onRecordListChange(){
-    recordListModel.save(this.recordList)
+    recordListModel.save()
   }
 };
 </script>
