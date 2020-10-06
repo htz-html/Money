@@ -24,7 +24,6 @@
 <script lang="js">
 import Vue from 'vue'
 import {Component, Watch} from 'vue-property-decorator'
-import tagListModel from '@/models/tagListModel.ts';
 import Button from '@/components/Button.vue'
 
 // tagListModel.fetch() //一开始就fetch()一下
