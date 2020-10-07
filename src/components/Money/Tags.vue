@@ -22,7 +22,7 @@ import { Component, Prop} from 'vue-property-decorator';
 @Component({
   computed:{
     tagList(){
-      this.$store.state.tagList;
+      return this.$store.state.tagList;
     }
   }
 })
