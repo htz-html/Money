@@ -5,7 +5,9 @@
     <div class="notes">
       <FormItem field-name="备注" placeholder="请输入标签名" @update:value="onUpdateNotes" />
     </div>
-    <Tags :data-source.sync="tags" @update:value="onUpdateTags" />
+    <Tags />
+    {{count}}
+    <button @click="$store.commit('addCount')">+1</button>
   </Layout>
 </template>
 <script lang="ts">
@@ -15,7 +17,8 @@ import FormItem from '@/components/Money/FormItem.vue'
 import Types from '@/components/Money/Types.vue'
 import NumberPad from '@/components/Money/NumberPad.vue'
 import {Component} from 'vue-property-decorator'
-import store from '@/store/index2.ts'
+import oldStore from '@/store/index2.ts'
+import store from '@/store/index.ts'
 
 //1.数据迁移，也就是说最开始我可能没有createdAt(记录时间)，但是后面我又要每次点击OK的试试记录下时间
 //2.那么我们就要把之前的数据，都添加一个时间，但是这个时间没办法找，就只能设置一个固定值。
@@ -31,7 +34,7 @@ type RecordItem = {
     amount: number
     createdAt?:Date
 }
-const recordList = store.recordList;
+const recordList = oldStore.recordList;
 // const tagList = tagListModel.fetch();
 //6.做判断
 if(version === '0.0.1') {
@@ -53,12 +56,21 @@ window.localStorage.setItem('version', '0.0.2')
 
 @Component({
   name: "Money",
-  components:{ Tags, FormItem, Types, NumberPad }
+  components:{ Tags, FormItem, Types, NumberPad },
+  computed:{
+    recordList(){
+      return oldStore.recordList
+    },
+    tags(){
+      return oldStore.tagList
+    },
+    count(){
+      return this.$store.state.count
+    }
+  }
 })
 export default class Money extends Vue {
-  tags = store.tagList;
-  recordList = store.recordList;  //后面recordList就是35行在本地获取的
-
+  // recordList = oldStore.recordList;  //后面recordList就是35行在本地获取的 
   record : RecordItem = {
     tags:[], notes: '', type:'-', amount: 0
   }
@@ -82,7 +94,7 @@ export default class Money extends Vue {
   //9.深拷贝：第一，先变成字符串，然后字符串创造出一下新的对象就好了。
 
   saveRecord(){
-    store.createRecord(this.record)
+    oldStore.createRecord(this.record)
   }
 };
 </script>
