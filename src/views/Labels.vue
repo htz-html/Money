@@ -26,6 +26,8 @@ import Vue from 'vue'
 import {Component, Watch} from 'vue-property-decorator'
 import Button from '@/components/Button.vue'
 import store from '@/store';
+import { TagHelper } from '@/mixins/TagHelper';
+import {mixins} from 'vue-class-component'
 
 // tagListModel.fetch() //一开始就fetch()一下
 @Component({
@@ -36,22 +38,11 @@ import store from '@/store';
     }
   },
 })
-export default class Labels extends Vue {
+export default class Labels extends mixins(TagHelper) {
   created() {
     this.$store.commit('fetchTags');
   }
-  createTag(){
-    const name = window.prompt("请输入标签名")
-    if(name){
-      this.$store.commit('createTag',name)
-      // const message = tagListModel.create(name);
-      // if(message === 'success'){
-      //   alert(message,"新增标签成功")
-      // }else if(message === 'duplicated'){
-      //   alert( message,"标签重复")
-      // }
-    } 
-  }
+  
 };
 </script>
 <style lang="scss" scoped>
