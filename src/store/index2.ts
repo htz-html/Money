@@ -5,5 +5,4 @@ const store = {
   ...recordStore,  //浅拷贝
   ...tagStore
 }
-
 export default store;
