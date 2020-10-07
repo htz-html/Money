@@ -20,7 +20,7 @@ body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: $font-hei;
-  line-height: 1.5;
+  line-height: 1.5; 
   color: #333;
   font-size: 14px;
   background: #f4f4f4;

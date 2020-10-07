@@ -15,15 +15,24 @@
 </template>
 
 <script lang="ts">
-import store from '@/store/index2';
+import store from '@/store';
 import Vue from 'vue'
 import { Component, Prop} from 'vue-property-decorator';  
 
-@Component
+@Component({
+  computed:{
+    tagList(){
+      this.$store.state.tagList;
+    }
+  }
+})
 export default class Tags extends Vue {
   //dataSource:数据源的意思
-  tagList = store.fetchTags();
+  //TODO
   selectedTags: string[] = [];
+  created(){
+    this.$store.commit('fetchTags')
+  }
 
   selecte(tag:string){
     //我这个只能选中一个
@@ -42,7 +51,7 @@ export default class Tags extends Vue {
   create(){
     const name = window.prompt("请输入标签名");
     if(!name){ return window.alert("标签名不能为空！")}
-    store.createTag(name)
+    this.$store.commit('createTag',name)
   }
 };
 </script>

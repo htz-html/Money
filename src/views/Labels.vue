@@ -25,18 +25,18 @@
 import Vue from 'vue'
 import {Component, Watch} from 'vue-property-decorator'
 import Button from '@/components/Button.vue'
-import store from '@/store/index2.ts'
+import store from '@/store';
 
 // tagListModel.fetch() //一开始就fetch()一下
 @Component({
   components:{Button}
 })
 export default class Labels extends Vue {
-  tags = store.tagList;
+  tags = this.$store.state.tagList;
   createTag(){
     const name = window.prompt("请输入标签名")
     if(name){
-      store.createTag(name)
+      this.$store.commit('createTag',name)
       // const message = tagListModel.create(name);
       // if(message === 'success'){
       //   alert(message,"新增标签成功")

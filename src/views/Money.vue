@@ -15,7 +15,7 @@ import FormItem from '@/components/Money/FormItem.vue'
 import Types from '@/components/Money/Types.vue'
 import NumberPad from '@/components/Money/NumberPad.vue'
 import {Component} from 'vue-property-decorator'
-import oldStore from '@/store/index2.ts'
+import store from '@/store'
 
 //1.数据迁移，也就是说最开始我可能没有createdAt(记录时间)，但是后面我又要每次点击OK的试试记录下时间
 //2.那么我们就要把之前的数据，都添加一个时间，但是这个时间没办法找，就只能设置一个固定值。
@@ -31,20 +31,20 @@ type RecordItem = {
     amount: number
     createdAt?:Date
 }
-const recordList = oldStore.recordList;
-// const tagList = tagListModel.fetch();
-//6.做判断
-if(version === '0.0.1') {
-//7.数据库升级，数据迁移
-  recordList.forEach(record => {
-    //46行先定义createdAt属性。然后添加到record里面
-    record.createdAt = new Date(2020,0,1)
-  })
-//8.数据迁移之后，要保存下来
-  window.localStorage.setItem('recordList', JSON.stringify(recordList))
-}
-//9.版本改成0.0.2
-window.localStorage.setItem('version', '0.0.2')
+// const recordList = this.$store.state.recordList;
+// // const tagList = tagListModel.fetch();
+// //6.做判断
+// if(version === '0.0.1') {
+// //7.数据库升级，数据迁移
+//   recordList.forEach(record => {
+//     //46行先定义createdAt属性。然后添加到record里面
+//     record.createdAt = new Date(2020,0,1)
+//   })
+// //8.数据迁移之后，要保存下来
+//   window.localStorage.setItem('recordList', JSON.stringify(recordList))
+// }
+// //9.版本改成0.0.2
+// window.localStorage.setItem('version', '0.0.2')
 
 //1.我要把选中的标签、备注内容、类型、输入的数字收集到一个对象里面。
 //2.ts对象的声明需要在外面先做一下操作: record 记录的意思
@@ -56,15 +56,14 @@ window.localStorage.setItem('version', '0.0.2')
   components:{ Tags, FormItem, Types, NumberPad },
   computed:{
     recordList(){
-      return oldStore.recordList
+      return this.$store.state.recordList
     },
     tags(){
-      return oldStore.tagList
+      return this.$store.state.tagList
     }
   }
 })
 export default class Money extends Vue {
-  // recordList = oldStore.recordList;  //后面recordList就是35行在本地获取的 
   record : RecordItem = {
     tags:[], notes: '', type:'-', amount: 0
   }
@@ -88,7 +87,7 @@ export default class Money extends Vue {
   //9.深拷贝：第一，先变成字符串，然后字符串创造出一下新的对象就好了。
 
   saveRecord(){
-    oldStore.createRecord(this.record)
+    this.$store.commit('createRecord',this.record)
   }
 };
 </script>
