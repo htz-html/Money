@@ -21,38 +21,21 @@ import { mixins } from 'vue-class-component';
 import { Component, Prop} from 'vue-property-decorator';  
 import {TagHelper} from '@/mixins/TagHelper.ts'
 
-@Component({
-  computed:{
-    tagList(){
-      return this.$store.state.tagList;
-    }
-  }
-})
+@Component
 export default class Tags extends mixins(TagHelper) {
-  //dataSource:数据源的意思
-  //TODO
   selectedTags: string[] = [];
+  get tagList(){
+    return this.$store.state.tagList;
+  }
   created(){
     this.$store.commit('fetchTags')
   }
-
   selecte(tag:string){
-    //我这个只能选中一个
     this.selectedTags = [tag];
-
-    //这是老师的,可以选中和取消
-    // const index = this.selectedTags.indexOf(tag)
-    // if(index>=0){
-    //   this.selectedTags.splice(index, 1)
-    //   console.log(this.selectedTags)
-    // }else{
-    //   this.selectedTags.push(tag)
-    // }
     this.$emit('update:value', this.selectedTags)
   }
 };
 </script>
-
 <style lang="scss" scoped>
 @import "~@/assets/styles/helper.scss";
 

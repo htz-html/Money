@@ -32,17 +32,14 @@ import {mixins} from 'vue-class-component'
 // tagListModel.fetch() //一开始就fetch()一下
 @Component({
   components:{Button},
-  computed: {
-    tags(){
-      return this.$store.state.tagList;
-    }
-  },
 })
 export default class Labels extends mixins(TagHelper) {
+  get tags(){
+    return this.$store.state.tagList;
+  }
   created() {
     this.$store.commit('fetchTags');
   }
-  
 };
 </script>
 <style lang="scss" scoped>
