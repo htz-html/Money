@@ -26,7 +26,7 @@ import { Component, Watch, Prop } from "vue-property-decorator";
 import Layout from "@/components/Layout.vue";
 import FormItem from "@/components/Money/FormItem.vue";
 import Button from "@/components/Button.vue";
-import store from '@/store';
+// import store from '@/store/index2.ts'
 
 @Component({
   components: {
@@ -34,23 +34,29 @@ import store from '@/store';
   },
 })
 export default class EditLabel extends Vue {
-  tag = store.commit('findTag',this.$route.params.id);
-  //获取后面的id信息
+  get tag(){
+    return this.$store.state.currentTag;
+  }
   created() {
-    this.$router.replace("/404");
+    const id = this.$route.params.id
+    this.$store.commit('setCurrentTag',id)
+    if(!this.tag){
+        this.$router.replace("/404");
+    }
   }
   updateTag(name: string) {
-      // if(this.tag) {
-      //     // store.updateTag(this.tag.id, name)
-      // }
-      this.$store.commit('updateTag',this.tag.id, name)
+      if(this.tag) {
+          this.$store.commit('updateTag',(this.tag.id, name))
+      }
   }
   remove(){
-      if(this.$store.commit('removeTag',this.tag.id)) {
+      if(this.tag) {
+          if(true) { //this.$store.commit('removeTag',this.tag.id)
             this.$router.back()
           }else {
               alert("失败")
           }
+      }
   }
   goBack(){
       this.$router.back()

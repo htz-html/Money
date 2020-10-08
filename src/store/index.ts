@@ -4,11 +4,19 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
+
+type RootState = {
+  recordList: RecordItem[],
+  tagList: Tag[],
+  currentTag?: Tag
+}
+
 const store =  new Vuex.Store({
   state: {
-    recordList: [] as RecordItem[],
-    tagList:[] as Tag[],
-  },
+    recordList: [],
+    tagList:[],
+    currentTag: undefined
+  } as RootState,
   mutations:{
     createRecord (state,record){
       const record2:RecordItem = clone(record); //深拷贝
@@ -20,7 +28,9 @@ const store =  new Vuex.Store({
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList))
     },
 
-
+    setCurrentTag(state,id:string){
+       state.currentTag = state.tagList.filter((t) => t.id === id)[0];
+    },
 
 
 
@@ -44,9 +54,6 @@ const store =  new Vuex.Store({
     },
     saveTag(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList))
-    },
-    findTag(state,id: string) {
-      state.tagList.filter((t) => t.id === id)[0];
     },
     removeTag(state,id: string) {
       let index = -1;
