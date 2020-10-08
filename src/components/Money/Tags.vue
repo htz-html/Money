@@ -15,7 +15,6 @@
 </template>
 
 <script lang="ts">
-import store from '@/store';
 import Vue from 'vue'
 import { mixins } from 'vue-class-component';
 import { Component, Prop} from 'vue-property-decorator';  

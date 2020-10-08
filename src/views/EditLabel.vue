@@ -26,7 +26,6 @@ import { Component, Watch, Prop } from "vue-property-decorator";
 import Layout from "@/components/Layout.vue";
 import FormItem from "@/components/Money/FormItem.vue";
 import Button from "@/components/Button.vue";
-// import store from '@/store/index2.ts'
 
 @Component({
   components: {

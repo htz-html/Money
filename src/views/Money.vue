@@ -15,7 +15,6 @@ import FormItem from '@/components/Money/FormItem.vue'
 import Types from '@/components/Money/Types.vue'
 import NumberPad from '@/components/Money/NumberPad.vue'
 import {Component} from 'vue-property-decorator'
-import store from '@/store'
 
 //1.数据迁移，也就是说最开始我可能没有createdAt(记录时间)，但是后面我又要每次点击OK的试试记录下时间
 //2.那么我们就要把之前的数据，都添加一个时间，但是这个时间没办法找，就只能设置一个固定值。
