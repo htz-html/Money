@@ -5,7 +5,7 @@
     <div class="notes">
       <FormItem field-name="备注" placeholder="请输入标签名" @update:value="onUpdateNotes" />
     </div>
-    <Tags />
+    <Tags @update:value = "onUpdateTags" />
   </Layout>
 </template>
 <script lang="ts">
@@ -57,6 +57,9 @@ type RecordItem = {
 export default class Money extends Vue {
   get recordList(){
     return this.$store.state.recordList
+  }
+  created() {
+    this.$store.commit('fetchRecord')
   }
   record : RecordItem = {
     tags:[], notes: '', type:'-', amount: 0

@@ -12,13 +12,16 @@ type RootState = {
   currentTag?: Tag
 }
 
-const store =  new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     recordList: [],
     tagList:[],
     currentTag: undefined
   } as RootState,
   mutations:{
+    fetchRecord(state){
+      state.recordList = JSON.parse(window.localStorage.getItem('recordList')||'[]')
+    },
     createRecord (state,record){
       const record2:RecordItem = clone(record); //深拷贝
       record2.createdAt = new Date()
@@ -28,6 +31,7 @@ const store =  new Vuex.Store({
     saveRecords(state){
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList))
     },
+    //之前是用的findTag方法，是有返回值的，但是mutations里面的函数没有返回值，所以就要定义一个currentTag的变量来接收，给外部使用
     setCurrentTag(state,id:string){
        state.currentTag = state.tagList.filter((t) => t.id === id)[0];
     },
@@ -77,28 +81,7 @@ const store =  new Vuex.Store({
           store.commit('saveTag');
         }
       } 
-    },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
   }
 })
 export default store;
