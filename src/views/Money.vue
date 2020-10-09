@@ -1,7 +1,8 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad :value.sync="record.amount" @submit = "saveRecord" />
-    <Types :value.sync="record.type"/>
+    <!-- <Types :value.sync="record.type"/> -->
+    <Tabs class="money-tabs" class-prefix="money" :value="record.type" @update:value="onUpdateTypes" :data-source="typeList" />
     <div class="notes">
       <FormItem field-name="备注" placeholder="请输入标签名" @update:value="onUpdateNotes" />
     </div>
@@ -12,7 +13,7 @@
 import Vue from 'vue'
 import Tags from '@/components/Money/Tags.vue'
 import FormItem from '@/components/Money/FormItem.vue'
-import Types from '@/components/Money/Types.vue'
+import Tabs from '@/components/Tabs.vue'
 import NumberPad from '@/components/Money/NumberPad.vue'
 import {Component} from 'vue-property-decorator'
 
@@ -52,9 +53,13 @@ type RecordItem = {
 
 @Component({
   name: "Money",
-  components:{ Tags, FormItem, Types, NumberPad },
+  components:{ Tags, FormItem, Tabs, NumberPad },
 })
 export default class Money extends Vue {
+  typeList= [
+    {text:'支出', value: '-'},
+    {text:'收入', value: '+'}
+  ]
   get recordList(){
     return this.$store.state.recordList
   }
@@ -64,12 +69,14 @@ export default class Money extends Vue {
   record : RecordItem = {
     tags:[], notes: '', type:'-', amount: 0
   }
-
   onUpdateTags(value:string[]){
     this.record.tags = value
   }
   onUpdateNotes(value:string) {
     this.record.notes = value
+  }
+  onUpdateTypes(value:string){
+    this.record.type = value
   }
   saveRecord(){
     this.$store.commit('createRecord',this.record)
@@ -84,4 +91,9 @@ export default class Money extends Vue {
 .notes{
   padding:10px 0;
 }
+</style>
+<style lang="scss" scoped>
+  .money-tabs ::v-deep .money-tabs-item{
+    font-size: 22px;
+  }
 </style>
