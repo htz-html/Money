@@ -89,11 +89,12 @@ export default class Money extends Vue {
   flex-direction: column-reverse;
 }
 .notes{
-  padding:10px 0;
+  padding:10px 0; 
 }
 </style>
 <style lang="scss" scoped>
   .money-tabs ::v-deep .money-tabs-item{
     font-size: 22px;
-  }
+    height: 60px;
+  } 
 </style>
