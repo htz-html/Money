@@ -29,7 +29,7 @@ type RecordItem = {
     notes: string
     type: string
     amount: number
-    createdAt?:Date
+    createdAt?:string
 }
 // const recordList = this.$store.state.recordList;
 // // const tagList = tagListModel.fetch();

@@ -5,35 +5,28 @@
     <Tabs class-prefix="type" :data-source="typeList" :value.sync="type"/>
     <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
     <div class="content">
-      <div class="date">今天</div>
-      <div class="detail" v-for="item in recordList" :key="item.id">
+      <div class="detail" v-for="item in result" :key="item.id">
+        {{recordList}}
+        <!-- <div class="date">今天</div>
         <span class="tag">{{ item.tags[0].name }}</span>
         <span class="use">{{ item.notes }}</span>
-        <span class="money">￥{{ item.amount }}</span>
-      </div>
-    </div>
-    <div class="content">
-      <div class="date">今天</div>
-      <div class="detail">
-        <span class="tag">淘宝</span>
-        <span class="use">买了一条裤子</span>
-        <span class="money">￥169</span>
+        <span class="money">￥{{ item.amount }}</span> -->
       </div>
     </div>
   </Layout>
 </template>
 
 <script lang="ts">
-import Types from "@/components/Money/Types.vue";
 import Tabs from "@/components/Tabs.vue";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import intervalList from '@/constants/intervalList.ts'
 import recordTypeList from '@/constants/recordTypeList.ts'
+import recordStore from '../store/recordStore';
 
 @Component({
   name: "Statistics",
-  components: { Types, Tabs },
+  components: { Tabs },
 })
 export default class Statistics extends Vue {
   type: string = "-";
@@ -42,11 +35,21 @@ export default class Statistics extends Vue {
   typeList= recordTypeList;
     
   get recordList() {
-    return this.$store.state.recordList;
+    return (this.$store.state as RootState).recordList;  //要在这里断言一下，说明一下store.state类型，不然就是any，导致recordList没有类型（早成的原因是ts和vue不配合）
+  }
+  get result(){
+    const {recordList} = this;
+    const hashTable:{[key:string]: RecordItem[]} = {};  //声明hashTable的类型，记住，如何声明一个空对象的类型
+    for(let i=0;i<this.recordList.length;i++){
+      const [date, time] = recordList[i].createdAt!.split('T')
+      hashTable[date] = hashTable[date] || []  //等于他自己，如果是个空的，就等于一个空数组
+      hashTable[date].push(recordList[i])
+    }
+    console.log(hashTable)
+    return hashTable
   }
   created() {
     this.$store.commit("fetchRecord");
-    console.log(this.recordList);
   }
 }
 </script>
