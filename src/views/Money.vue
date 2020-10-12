@@ -71,6 +71,7 @@ export default class Money extends Vue {
   }
   onUpdateTags(value:string[]){
     this.record.tags = value
+    console.log(value)
   }
   onUpdateNotes(value:string) {
     this.record.notes = value
