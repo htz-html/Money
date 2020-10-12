@@ -60,7 +60,7 @@ export default class Statistics extends Vue {
   }
   get groupedList(){
     const {recordList} = this;
-    if(recordList.length === 0) {return []}
+    if(recordList.length === 0) {return [] as Result;}
     //[ {title:xxx,items:{}}]
     const newList = clone(recordList)
     .filter(r=>r.type === this.type)
@@ -79,7 +79,7 @@ export default class Statistics extends Vue {
     result.map(group=>{  //区分map(有返回值的forEach)和forEach（没有返回值的map）
       group.total = group.items.reduce((sum, item)=>sum + item.amount, 0);
     })
-    return result
+    return result 
   }
 
   created() {
