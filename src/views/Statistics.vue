@@ -4,8 +4,8 @@
     <!-- <Types class-prefix="statistics" :value="type" v-on:update:value="type = $event" /> -->
     <Tabs class-prefix="type" :data-source="typeList" :value.sync="type"/>
     <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
-      <div class="content" v-for="(group, index) in result" :key="index">
-        <h3>{{group.title}}</h3>
+      <div class="content" v-for="group in result" :key="group.title">
+        <h3>{{beautify(group.title)}}</h3>
         <div class="detail" v-for="item in group.items" :key="item.id">
           <span>{{tagString(item.tags)}}</span>
           <span class="use">{{item.notes}}</span>
@@ -23,7 +23,9 @@ import intervalList from '@/constants/intervalList.ts'
 import recordTypeList from '@/constants/recordTypeList.ts'
 import recordStore from '../store/recordStore';
 import store from '@/store';
+import dayjs from 'dayjs'
 
+const oneDay = 86400*1000
 @Component({
   name: "Statistics",
   components: { Tabs },
@@ -34,8 +36,25 @@ export default class Statistics extends Vue {
   intervalList= intervalList;
   typeList= recordTypeList;
   
+  beautify(string: string){
+    const day = dayjs(string);
+    const now = dayjs()
+    if(day.isSame(new Date(), 'day')){
+      return '今天';
+    } else if(day.isSame(now.subtract(1, 'day'), 'day')){ //subtract: 减的意思
+      return '昨天'
+    } else if(day.isSame(now.subtract(2, 'day'), 'day')){
+      return '前天'
+    } else if(day.isSame(now, 'year')){
+      return day.format('M月D日')
+    } else{
+      return day.format('YYYY年M月D日')
+    }
+    
+
+        
+  }
   tagString(tags:Tag[]){
-    console.log(tags)
     return tags.length===0? "无": tags[0].name
   }
   get recordList() {
@@ -52,6 +71,7 @@ export default class Statistics extends Vue {
     }
     return hashTable
   }
+
   created() {
     this.$store.commit("fetchRecord");
   }
