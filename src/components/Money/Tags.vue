@@ -1,5 +1,5 @@
 <template>
-  <div class="tags">
+  <div class="tags" :style="{height: clientHeight -395 + 'px'}">
     <div class="new">
       <button @click="createTag">新增标签</button>
     </div>
@@ -23,6 +23,7 @@ import {TagHelper} from '@/mixins/TagHelper.ts'
 @Component
 export default class Tags extends mixins(TagHelper) {
   selectedTags: string[] = [];
+  @Prop(Number) clientHeight!: number;
   get tagList(){
     return this.$store.state.tagList;
   }
@@ -37,14 +38,17 @@ export default class Tags extends mixins(TagHelper) {
 </script>
 <style lang="scss" scoped>
 @import "~@/assets/styles/helper.scss";
-
 .tags { 
+  @extend %positionFixed;
+    bottom: 395px;
   display: flex;
   flex-grow: 1;
   flex-direction: column-reverse;
   font-size: 14px;
   padding: 5px;
   background: white;
+  margin-top: 60px;
+  overflow: auto;
   > .current {
     display: flex;
     flex-wrap: wrap;
@@ -65,6 +69,7 @@ export default class Tags extends mixins(TagHelper) {
     }
   }
   > .new {
+    
     padding: 15px 0 10px 10px;
     > button {
       border: none;

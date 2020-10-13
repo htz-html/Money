@@ -9,6 +9,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     recordList: [],
+    createRecordError:null,
     tagList:[],
     currentTag: undefined
   } as RootState,
@@ -17,7 +18,7 @@ const store = new Vuex.Store({
       state.recordList = JSON.parse(window.localStorage.getItem('recordList')||'[]')
     },
     createRecord (state,record){
-      const record2:RecordItem = clone(record); //深拷贝
+      const record2 = clone(record); //深拷贝
       record2.createdAt = new Date().toISOString()
       state.recordList.push(record2)
       store.commit('saveRecords')
@@ -31,6 +32,12 @@ const store = new Vuex.Store({
     },
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if(!state.tagList || state.tagList.length === 0) {
+        store.commit('createTag', '衣');
+        store.commit('createTag', '食');
+        store.commit('createTag', '住');
+        store.commit('createTag', '行');
+      }
     },
     createTag(state,name: string) {
       const names = state.tagList.map(item => item.name)  //如data={[id:"1",name:"1"]}，提取name组成一个新的数组
@@ -41,7 +48,6 @@ const store = new Vuex.Store({
       const id = createId().toString();
       state.tagList.push({ id, name: name });
       store.commit('saveTag');
-      window.alert("新增标签成功")
     },
     saveTag(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList))

@@ -31,30 +31,59 @@ export default class Tabs extends Vue {
 
 }
 </script>
-
 <style lang="scss" scoped>
 .tabs {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
   display: flex;
-  background: #c4c4c4;
   > li {
-    position: relative;
-    width: 50%;
-    height: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 48px;
+    line-height: 48px;
+    flex: 1;
     font-size: 16px;
+    text-align: center;
+    position: relative;
     &.selected::after {
       // &表示当前li
       content: "";
       position: absolute;
-      left: 0;
+      left: 50%;
       bottom: 0;
-      width: 100%;
+      transform: translateX(-50%);
+      width: 50px;
       height: 4px;
-      background: #666;
-      
+      background: #3b59ff;
+      border-radius:100px;
     }
   }
 }
+
+// .tabs {
+//   display: flex;
+//   background: #c4c4c4;
+//   > li {
+//     position: relative;
+//     width: 50%;
+//     height: 48px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     font-size: 16px;
+//     &.selected::after {
+//       // &表示当前li
+//       content: "";
+//       position: absolute;
+//       left: 0;
+//       bottom: 0;
+//       width: 100%;
+//       height: 4px;
+//       background: #666;
+      
+//     }
+//   }
+// }
 </style>

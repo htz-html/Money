@@ -1,7 +1,8 @@
 type RootState = {
     recordList: RecordItem[],
     tagList: Tag[],
-    currentTag?: Tag
+    currentTag?: Tag,
+    createRecordError:Error | null
 }
 
 type RecordItem = {
@@ -38,4 +39,8 @@ interface Window {
         createRecord: (record: RecordItem) => void
     }
 
+}
+
+interface Window {
+    clientHeight:number
 }

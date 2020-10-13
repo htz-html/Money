@@ -72,6 +72,10 @@ export default class NumberPad extends Vue {
 
 <style lang="scss" scoped>
 @import "~@/assets/styles/helper.scss";
+.numberPad{
+  @extend %positionFixed;
+  bottom: 55px;
+}
 .numberPad {
   .output {
     padding-right: 10px;
@@ -80,7 +84,7 @@ export default class NumberPad extends Vue {
     font-family: Consolas, monospace; //直接使用字体
     line-height: 60px;
     min-height: 60px;
-    @extend %innerShadow;
+    background: white;
     // box-shadow: inset 0 -5px 5px -5px fade-out(black,0.7); // 向上的阴影，想要同时添加上下阴影
     // box-shadow: inset 0 -5px 5px -5px fade-out(black,0.7), //向上的阴影，想要同时添加上下阴影
     // inset 0 -5px 5px -5px  fade-out(black,0.7);//向上的阴影
@@ -89,12 +93,12 @@ export default class NumberPad extends Vue {
     @extend %clearFix; //extend继承；是把当前选择器复制到 “%clearflex”那里去，使用clearflex的scss
     font-size: 16px;
     button {
-      height: 64px;
+      height: 60px;
       width: 25%;
       border: none;
       background: transparent;
       &.ok {
-        height: 64 * 2px;
+        height: 60 * 2px;
         float: right;
       }
       &.zero {

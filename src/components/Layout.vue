@@ -15,10 +15,11 @@
 </script>
 
 <style lang="scss" scoped>
+
 .nav-wrapper{
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+    // display: flex;
+    // flex-direction: column;
+    // min-height: 100vh;
     .content{
         overflow: auto;
         flex-grow: 1;

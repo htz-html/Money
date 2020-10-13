@@ -30,10 +30,13 @@ export default class FormItem extends Vue {
 @import "~@/assets/styles/helper.scss";
 
 .formItem {
+  @extend %positionFixed;
+  bottom: 355px;
   font-size: 14px;
   display: flex;
   align-items: center;
   padding: 0 15px;
+  background: #eee;
   .name {
     padding-right: 16px;
   }

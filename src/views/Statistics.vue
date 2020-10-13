@@ -1,18 +1,26 @@
 
 <template>
-  <Layout>
+  <div class="box">
+    <Layout>
     <!-- <Types class-prefix="statistics" :value="type" v-on:update:value="type = $event" /> -->
     <Tabs class-prefix="type" :data-source="typeList" :value.sync="type"/>
     <!-- <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/> -->
-      <div class="content" v-for="(group,index) in groupedList" :key="index">
-        <h3>{{beautify(group.title)}} <span>{{group.total}}</span></h3>
-        <div class="detail" v-for="item in group.items" :key="item.id">
-          <span>{{tagString(item.tags)}}</span>
-          <span class="use">{{item.notes}}</span>
-          <span>￥{{item.amount}}</span>
+      <div v-if="groupedList.length>0">
+        <div class="content" v-for="(group,index) in groupedList" :key="index">
+          <h3>{{beautify(group.title)}} <span>{{group.total}}</span></h3>
+          <div class="detail" v-for="item in group.items" :key="item.id">
+            <span>{{tagString(item.tags)}}</span>
+            <span class="use">{{item.notes}}</span>
+            <span>￥{{item.amount}}</span>
+          </div>
         </div>
       </div>
+      <div v-else class="noResult">
+        <Icon class="xxx" name="no_result"/>
+        <div>目前没有相关记录</div>
+      </div>
   </Layout>
+  </div>
 </template>
 
 <script lang="ts">
@@ -25,11 +33,12 @@ import recordStore from '../store/recordStore';
 import store from '@/store';
 import dayjs from 'dayjs'
 import clone from '@/lib/clone';
+import Icon from '@/components/Icon.vue';
 
 const oneDay = 86400*1000
 @Component({
   name: "Statistics",
-  components: { Tabs },
+  components: { Tabs, Icon },
 })
 export default class Statistics extends Vue {
   type: string = "-";
@@ -60,14 +69,14 @@ export default class Statistics extends Vue {
   }
   get groupedList(){
     const {recordList} = this;
-    if(recordList.length === 0) {return [] as Result;}
     //[ {title:xxx,items:{}}]
     const newList = clone(recordList)
     .filter(r=>r.type === this.type)
     .sort((a,b)=> dayjs(b.createdAt).valueOf()- dayjs(a.createdAt).valueOf())  //sort:排序，使用createdAt时间来排序。但是有的地方可能不需要这样的排序，所以我们深克隆了一下
+    if(newList.length === 0) {return [] as Result;}
     type Result = {title:string, total?:number, items:RecordItem[]}[]
-    const result:Result = [{title:dayjs(newList[0].createdAt).format('YYYY-MM-DD'),items: [newList[0]]}]
-    for(let i=1;i<newList.length-1;i++){
+    const result:Result = [{title:dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}]
+    for(let i=1;i<newList.length;i++){
       const current = newList[i];
       const last = result[result.length -1]
       if((dayjs(last.title)).isSame(dayjs(current.createdAt),'day')) {
@@ -79,7 +88,7 @@ export default class Statistics extends Vue {
     result.map(group=>{  //区分map(有返回值的forEach)和forEach（没有返回值的map）
       group.total = group.items.reduce((sum, item)=>sum + item.amount, 0);
     })
-    return result 
+    return result
   }
 
   created() {
@@ -88,6 +97,19 @@ export default class Statistics extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+.box{
+    margin-top: 48px;
+    margin-bottom: 55px;
+  }
+.noResult {
+  padding: 100px;
+  text-align: center;
+  svg{
+    width: 100px;
+    height: 100px;
+    color: #aaa;
+  }
+}
 ::v-deep .type-tabs-item {
   background: white;
   &.selected{
