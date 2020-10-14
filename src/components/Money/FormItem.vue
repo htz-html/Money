@@ -19,16 +19,13 @@ export default class FormItem extends Vue {
   @Prop({default:''}) readonly value!: string;
   @Prop({required:true}) fieldName!: string;
   @Prop(String) placeholder?: string;
-  
   onValueChanged(value:string){
     this.$emit("update:value", value)
   }
 };
 </script>
-
 <style lang="scss" scoped>
 @import "~@/assets/styles/helper.scss";
-
 .formItem {
   @extend %positionFixed;
   bottom: 355px;
