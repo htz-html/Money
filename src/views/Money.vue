@@ -43,8 +43,6 @@ export default class Money extends Vue {
   created() {
     this.$store.commit('fetchRecord')
     this.clientHeight=document.documentElement.clientHeight;
-    console.log(document.documentElement.clientHeight)
-    
   }
   mounted() {
     window.onresize = function temp() {

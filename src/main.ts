@@ -19,3 +19,7 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+if(document.documentElement.clientWidth > 500) {
+  window.alert("请使用手机模式打开本页面，以保证浏览效果")
+}
