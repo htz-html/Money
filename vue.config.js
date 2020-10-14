@@ -1,6 +1,14 @@
 /* eslint-disable */ 
 const path = require('path')
 
+const build = process.argv[3] || "--git";
+let publicPath = "/";
+if(process.env.NODE_ENV === "production") {
+
+  publicPath = { "--git": '/morney-website' , "local": '/'}[build] || "/";
+}
+
+
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'? '/morney-website/' : '/',
   lintOnSave: false,
